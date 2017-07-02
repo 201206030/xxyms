@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.happystudy.xxyms.test.dao.XxymsTestDao">
+    <resultMap type="net.happystudy.xxyms.test.domain.XxymsTest" id="BaseResultMap" >
+        <id column="test_id" property="testId" jdbcType="INTEGER"/>
+        <result column="test_name" property="testName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="fullColumnList">
+        test_id,test_name
+    </sql>
+    <select id="findAll" resultMap="BaseResultMap">
+        select  
+        <include refid="fullColumnList"/> 
+        from xxyms_test
+    </select>
+    <insert id="insert" parameterType="net.happystudy.xxyms.test.domain.XxymsTest" useGeneratedKeys="true" keyProperty="testId">
+        insert into xxyms_test 
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="testId != null">
+                test_id,
+            </if>
+            <if test="testName != null">
+                test_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="testId != null">
+                #{testId,jdbcType=INTEGER},
+            </if>
+            <if test="testName != null">
+                #{testName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+</mapper>
