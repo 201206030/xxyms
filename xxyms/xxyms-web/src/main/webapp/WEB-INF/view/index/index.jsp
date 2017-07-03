@@ -148,7 +148,7 @@
         <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${pageContext.request.contextPath}/blackboard" frameborder="0" data-id="/blackboard" seamless=""></iframe>
     </div>
     <div class="footer">
-        <div class="pull-right">© 2016-2017 <a href="https://github.com/201206030/xxyms" target="_blank">xxyms</a>
+        <div class="pull-right">© 2017 <a href="https://github.com/201206030/xxyms" target="_blank">xxyms</a>
         </div>
     </div>
 </div>        <!--右侧部分结束-->
