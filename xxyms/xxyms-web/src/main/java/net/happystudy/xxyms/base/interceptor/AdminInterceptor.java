@@ -9,7 +9,8 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.druid.support.logging.Log;
+import net.happystudy.xxyms.user.domain.User;
+import net.happystudy.xxyms.utils.Constant;
 
 public class AdminInterceptor implements HandlerInterceptor {
     
@@ -50,6 +51,10 @@ public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse arg1, Object arg2) throws Exception {
+        User user = (User) req.getSession().getAttribute(Constant.SESSIONUSER);
+        if (user != null) {
+            return true;
+        }
         String uri = req.getRequestURI();
         uri=uri.replaceFirst(req.getContextPath(), "");
         Logger.getLogger(AdminInterceptor.class).debug("uri="+uri);
