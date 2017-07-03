@@ -131,4 +131,28 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
             <value>4096</value>
         </property>
     </bean>
+    
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="net.happystudy.xxyms.base.interceptor.AdminInterceptor">
+                <!-- 不需要权限验证的地址  -->
+                <property name="excludeUrls">
+                    <list>
+                        <value>/</value>
+                        <value>/index</value><!-- 登录页面 -->
+                        <value>/login</value><!-- 登录操作 -->
+                        <value>/logout</value><!-- 登录操作 -->
+                        <value>/validatecode</value><!-- 生成验证码 -->
+                    </list>
+                </property>
+                <property name="resources">
+                    <list>
+                        <value>^/static/.*</value><!-- 静态资源,（开始）/static/任意字符（0次或多次） -->
+                    </list>
+                </property>
+            </bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

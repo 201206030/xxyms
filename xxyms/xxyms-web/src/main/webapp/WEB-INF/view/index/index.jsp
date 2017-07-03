@@ -27,17 +27,17 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/static/img/a5.jpg" width="64px" height="64px"></span>
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="http://localhost/#">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="${pageContext.request.contextPath}/#">
                         <span class="clear">
-                       <span class="block m-t-xs"><strong class="font-bold">熊小洋</strong></span>
+                       <span class="block m-t-xs"><strong class="font-bold">${sessionUser.name }</strong></span>
                         <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                        <li><a class="J_menuItem" href="http://localhost/mgr/user_info" data-index="0">个人资料</a></li>
-                        <li><a class="J_menuItem" href="http://localhost/mgr/user_chpwd" data-index="1">修改密码</a></li>
+                        <li><a class="J_menuItem" href="${pageContext.request.contextPath}/user_info" data-index="0">个人资料</a></li>
+                        <li><a class="J_menuItem" href="${pageContext.request.contextPath}/user_chpwd" data-index="1">修改密码</a></li>
                         <li class="divider"></li>
-                        <li><a href="http://localhost/logout">安全退出</a>
+                        <li><a href="${pageContext.request.contextPath}/logout">安全退出</a>
                         </li>
                     </ul>
                 </div>
@@ -52,38 +52,38 @@
                         </a>
                     </li>
                     <li>
-                        <a href="http://localhost/#">
+                        <a href="${pageContext.request.contextPath}/#">
                             <i class="fa fa-user"></i>
                             <span class="nav-label">系统管理</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level collapse">
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/mgr" data-index="3">用户管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/mgr" data-index="3">用户管理</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/role" data-index="4">角色管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/role" data-index="4">角色管理</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/dept" data-index="5">部门管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/dept" data-index="5">部门管理</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/dict" data-index="6">字典管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/dict" data-index="6">字典管理</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/menu" data-index="7">菜单管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/menu" data-index="7">菜单管理</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/loginLog" data-index="8">登录日志</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/loginLog" data-index="8">登录日志</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/log" data-index="9">业务日志</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/log" data-index="9">业务日志</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/druid" data-index="10">监控管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/druid" data-index="10">监控管理</a>
                                     </li>
                                     <li>
-                                        <a class="J_menuItem" href="http://localhost/notice" data-index="11">通知管理</a>
+                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/notice" data-index="11">通知管理</a>
                                     </li>
                         </ul>
                     </li>
@@ -102,8 +102,8 @@
 <div id="page-wrapper" class="gray-bg dashbard-1">
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="http://localhost/#"><i class="fa fa-bars"></i> </a>
-                <form role="search" class="navbar-form-custom" method="post" action="http://localhost/search_results.html">
+            <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="${pageContext.request.contextPath}/#"><i class="fa fa-bars"></i> </a>
+                <form role="search" class="navbar-form-custom" method="post" action="${pageContext.request.contextPath}/search_results">
                     <div class="form-group">
                         <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
                     </div>
@@ -142,7 +142,7 @@
                 </li>
             </ul>
         </div>
-        <a href="http://localhost/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+        <a href="${pageContext.request.contextPath}/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
     </div>
     <div class="row J_mainContent" id="content-main">
         <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${pageContext.request.contextPath}/blackboard" frameborder="0" data-id="/blackboard" seamless=""></iframe>
@@ -158,7 +158,7 @@
     <div class="slimScrollDiv" style="position: relative; width: auto; height: 100%;"><div class="sidebar-container" style="width: auto; height: 100%;">
 
         <ul class="nav nav-tabs navs-3">
-            <li class="active"><a data-toggle="tab" href="http://localhost/#tab-1"> <i class="fa fa-gear"></i> 主题
+            <li class="active"><a data-toggle="tab" href="${pageContext.request.contextPath}/#tab-1"> <i class="fa fa-gear"></i> 主题
             </a></li>
         </ul>
 
@@ -204,17 +204,17 @@
                     </div>
                     <div class="title">皮肤选择</div>
                     <div class="setings-item default-skin nb">
-                        <span class="skin-name "> <a href="http://localhost/#" class="s-skin-0">
+                        <span class="skin-name "> <a href="${pageContext.request.contextPath}/#" class="s-skin-0">
                                 默认皮肤 </a>
                         </span>
                     </div>
                     <div class="setings-item blue-skin nb">
-                        <span class="skin-name "> <a href="http://localhost/#" class="s-skin-1">
+                        <span class="skin-name "> <a href="${pageContext.request.contextPath}/#" class="s-skin-1">
                                 蓝色主题 </a>
                         </span>
                     </div>
                     <div class="setings-item yellow-skin nb">
-                        <span class="skin-name "> <a href="http://localhost/#" class="s-skin-3">
+                        <span class="skin-name "> <a href="${pageContext.request.contextPath}/#" class="s-skin-3">
                                 黄色/紫色主题 </a>
                         </span>
                     </div>
