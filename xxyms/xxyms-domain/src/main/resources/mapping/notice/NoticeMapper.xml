@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.happystudy.xxyms.notice.dao.NoticeDao">
+    <resultMap type="net.happystudy.xxyms.notice.domain.Notice" id="BaseResultMap">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="content" property="content" jdbcType="CLOB"/>
+        <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
+        <result column="creater" property="creater" jdbcType="INTEGER"/>
+        
+    </resultMap>
+    <select id="findContentsDesc" resultType="String">
+        select content from notice order by id desc
+    </select>
+</mapper>

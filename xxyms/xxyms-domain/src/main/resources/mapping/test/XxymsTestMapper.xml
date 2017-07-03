@@ -32,4 +32,10 @@
             </if>
         </trim>
     </insert>
+    <insert id="insertList" parameterType="java.util.List">
+        insert into xxyms_test (test_name) values  
+        <foreach collection="list" item="item" separator=",">
+            (#{item.testName,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
 </mapper>
