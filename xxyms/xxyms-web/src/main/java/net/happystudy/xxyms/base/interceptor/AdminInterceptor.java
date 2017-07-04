@@ -57,6 +57,13 @@ public class AdminInterceptor implements HandlerInterceptor {
         if (excludeUrls != null && excludeUrls.contains(uri)) {
             return true;
         }
+        if (resources != null && resources.size() > 0) {
+            for (String resource : resources) {
+                if (uri.matches(resource)) {
+                    return true;
+                }
+            }
+        }
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute(Constant.SESSIONUSER);
         
@@ -70,13 +77,7 @@ public class AdminInterceptor implements HandlerInterceptor {
         
         Logger.getLogger(AdminInterceptor.class).debug("uri="+uri);
         
-        if (resources != null && resources.size() > 0) {
-            for (String resource : resources) {
-                if (uri.matches(resource)) {
-                    return true;
-                }
-            }
-        }
+        
         return false;
     }
 
