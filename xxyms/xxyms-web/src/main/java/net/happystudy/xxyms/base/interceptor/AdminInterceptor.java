@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -51,16 +52,24 @@ public class AdminInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse arg1, Object arg2) throws Exception {
-        User user = (User) req.getSession().getAttribute(Constant.SESSIONUSER);
-        if (user != null) {
-            return true;
-        }
         String uri = req.getRequestURI();
         uri=uri.replaceFirst(req.getContextPath(), "");
-        Logger.getLogger(AdminInterceptor.class).debug("uri="+uri);
         if (excludeUrls != null && excludeUrls.contains(uri)) {
             return true;
         }
+        HttpSession session = req.getSession();
+        User user = (User) session.getAttribute(Constant.SESSIONUSER);
+        
+        if (user != null) {
+            List<String> funcs = (List<String>) session.getAttribute(Constant.FUNC_URI);
+            if ((funcs == null) || (!funcs.contains(uri))) {
+                return false;
+            }
+            return true;
+        }
+        
+        Logger.getLogger(AdminInterceptor.class).debug("uri="+uri);
+        
         if (resources != null && resources.size() > 0) {
             for (String resource : resources) {
                 if (uri.matches(resource)) {

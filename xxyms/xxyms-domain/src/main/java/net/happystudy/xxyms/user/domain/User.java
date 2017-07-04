@@ -28,7 +28,7 @@ public class User implements Serializable{
 //    `phone` varchar(45) DEFAULT NULL COMMENT '电话',
     private String phone;
 //    `roleid` varchar(255) DEFAULT NULL COMMENT '角色id',
-    private String roleid;
+    private Role role;
 //    `deptid` int(11) DEFAULT NULL COMMENT '部门id',
     private Integer deptid;
 //    `status` int(11) DEFAULT NULL COMMENT '状态(1：启用  2：冻结  3：删除）',
@@ -91,11 +91,12 @@ public class User implements Serializable{
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    public String getRoleid() {
-        return roleid;
+    
+    public Role getRole() {
+        return role;
     }
-    public void setRoleid(String roleid) {
-        this.roleid = roleid;
+    public void setRole(Role role) {
+        this.role = role;
     }
     public Integer getDeptid() {
         return deptid;

@@ -11,13 +11,17 @@
         <result column="sex" property="sex" jdbcType="INTEGER"/>
         <result column="email" property="email" jdbcType="VARCHAR"/>
         <result column="phone" property="phone" jdbcType="VARCHAR"/>
-        <result column="roleid" property="roleid" jdbcType="VARCHAR"/>
         <result column="deptid" property="deptid" jdbcType="INTEGER"/>
         <result column="status" property="status" jdbcType="INTEGER"/>
         <result column="createtime" property="createtime" jdbcType="TIMESTAMP"/>
         <result column="version" property="version" jdbcType="INTEGER"/>
+        <!-- association，collection必须放到最后 -->
+        <association property="role" javaType="net.happystudy.xxyms.user.domain.Role">
+            <id column="role_id" property="id" jdbcType="INTEGER"/>
+            <result column="role_name" property="name" jdbcType="VARCHAR"/>
+        </association>
     </resultMap>
     <select id="login" resultMap="BaseResultMap">
-        select * from user where account = #{0,jdbcType=VARCHAR} and password = #{1,jdbcType=VARCHAR} limit 1
+        select u.id id, u.avatar avatar,u.name name,r.id role_id,r.name role_name from user u inner join role r on u.roleid = r.id and account = #{0,jdbcType=VARCHAR} and password = #{1,jdbcType=VARCHAR} limit 1
     </select>
 </mapper>

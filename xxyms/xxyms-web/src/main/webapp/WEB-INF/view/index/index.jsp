@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Xxyms - 主页</title>
@@ -26,11 +27,19 @@
         <ul class="nav" id="side-menu">
             <li class="nav-header">
                 <div class="dropdown profile-element">
-                    <span><img alt="image" class="img-circle" src="${pageContext.request.contextPath}/static/img/a5.jpg" width="64px" height="64px"></span>
+                <c:choose>
+                    <c:when test="${not empty sessionUser.avatar }">
+                        <c:set var="imgIcon" value="${pageContext.request.contextPath}${sessionUser.avatar }"></c:set>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="imgIcon" value="${pageContext.request.contextPath}/static/img/a2.jpg"></c:set>
+                    </c:otherwise>
+                </c:choose>
+                    <span><img alt="image" class="img-circle" src="${imgIcon }" width="64px" height="64px"></span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="${pageContext.request.contextPath}/#">
                         <span class="clear">
                        <span class="block m-t-xs"><strong class="font-bold">${sessionUser.name }</strong></span>
-                        <span class="text-muted text-xs block">超级管理员<b class="caret"></b></span>
+                        <span class="text-muted text-xs block">${sessionUser.role.name }<b class="caret"></b></span>
                         </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -44,55 +53,57 @@
                 <div class="logo-element">Mx
                 </div>
             </li>
+            <c:set var="firstMenus" value="${menu.childMenu }"></c:set>
             
-                    <li>
-                        <a class="J_menuItem" href="" data-index="2">
-                            <i class="fa fa-rocket"></i>
-                            <span class="nav-label">业务管理</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/#">
-                            <i class="fa fa-user"></i>
-                            <span class="nav-label">系统管理</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level collapse">
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/mgr" data-index="3">用户管理</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/role" data-index="4">角色管理</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/dept" data-index="5">部门管理</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/dict" data-index="6">字典管理</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/menu" data-index="7">菜单管理</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/loginLog" data-index="8">登录日志</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/log" data-index="9">业务日志</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/druid" data-index="10">监控管理</a>
-                                    </li>
-                                    <li>
-                                        <a class="J_menuItem" href="${pageContext.request.contextPath}/notice" data-index="11">通知管理</a>
-                                    </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="J_menuItem" href="" data-index="13">
-                            <i class="fa fa-leaf"></i>
-                            <span class="nav-label">其他管理</span>
-                        </a>
-                    </li>
+            <c:if test="${not empty firstMenus}">
+                <c:forEach items="${firstMenus}" var="firstMenu">
+                    <c:set var="secondMenus" value="${firstMenu.childMenu }"></c:set>
+                    <c:choose>
+                        <c:when test="${not empty secondMenus}">
+                            <li>
+		                        <a href="#">
+		                            <i class="fa ${firstMenu.icon}"></i>
+		                            <span class="nav-label">${firstMenu.name}</span>
+		                            <span class="fa arrow"></span>
+		                        </a>
+                                <ul class="nav nav-second-level">
+                                <c:forEach items="${secondMenus }" var="secondMenu">
+                                <c:set var="thirdMenus" value="${secondMenu.childMenu }"></c:set>
+                                    <c:choose>
+                                        <c:when test="${empty thirdMenus }">
+                                            <li>
+                                                <a class="J_menuItem" href="${pageContext.request.contextPath}${secondMenu.url}">${secondMenu.name}</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+	                                        <li>
+		                                        <a href="#">${secondMenu.name} <span class="fa arrow"></span></a>
+		                                        <ul class="nav nav-third-level">
+		                                          <c:forEach items="secondMenu.childMenu" var="thirdMenu">
+		                                              <li>
+                                                         <a class="J_menuItem" href="${pageContext.request.contextPath}${thirdMenu.url}">${thirdMenu.name}</a>
+                                                      </li>
+		                                          </c:forEach>
+		                                        </ul>
+	                                        </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                                </ul>
+                             </li>
+                        </c:when>
+                        <c:otherwise>
+	                        <li>
+		                        <a class="J_menuItem" href="${pageContext.request.contextPath}${firstMenu.url}">
+		                            <i class="fa ${firstMenu.icon}"></i>
+		                            <span class="nav-label">${firstMenu.name}</span>
+		                        </a>
+	                        </li>
+                        </c:otherwise>
+                    </c:choose>
+                    
+                </c:forEach>
+            </c:if>
 
         </ul>
     </div><div class="slimScrollBar" style="width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 579px; background: rgb(0, 0, 0);"></div><div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; opacity: 0.9; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
@@ -241,6 +252,52 @@
 
     <!-- 第三方插件 -->
     <script src="${pageContext.request.contextPath}/static/js/plugins/pace/pace.min.js"></script>
-    
+    <!-- <script type="text/javascript">
+          var ctx = "${pageContext.request.contextPath}";
+          var containDiv=$("ul#side-menu");
+          var resultHtml = "";
+          var count = 0;
+          $(function(){
+        	  $.post("",{},function(result){
+              var rel = JSON.parse(result);
+             var data = rel.data;
+             resultHtml="";
+             count=0;
+             madeMenu("0",data,getMenuByPcode(0,data));
+            alert(resultHtml);
+             alert(count); 
+             containDiv.append(resultHtml); 
+         });
+     });
+     function madeMenu(pcode,data,menus){
+         for (var i = 0 ; i < menus.length ; i++) {
+             var menu = menus[i];
+             var childMenus = getMenuByPcode(menu.code,data);
+             if (childMenus.length > 0) {
+                 resultHtml+='<li> <a href="#"><i class="fa '+menu.icon+'"></i> <span class="nav-label">'+menu.name+'</span><span class="fa arrow"></span></a><ul class="nav nav-second-level">';
+                 madeMenu(menu.code,data,childMenus);
+                 resultHtml+='</ul></li>';
+             } else {
+                 count++;
+                 if (menu.pcode == "0") {
+                     resultHtml+='<li><a class="J_menuItem" href="'+(ctx+menu.url)+'"><i class="fa '+menu.icon+'"></i><span class="nav-label">'+menu.name+'</span></a> </li>';
+                 } else {
+                     resultHtml+='<li><a class="J_menuItem" href="'+(ctx+menu.url)+'">'+menu.name+'</a> </li>';
+                 }
+                 
+             }
+         }
+     }
+     function getMenuByPcode(pcode,data){
+         var result = [];
+         for (var i = 0 ; i < data.length ; i++) {
+             var menu = data[i];
+             if (menu.pcode == pcode) {
+                 result.push(menu);
+             }
+         }
+         return result;
+     } 
+    </script> -->
     
 </body></html>

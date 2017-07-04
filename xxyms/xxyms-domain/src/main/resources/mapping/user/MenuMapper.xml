@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.happystudy.xxyms.user.dao.MenuDao">
+    <resultMap type="net.happystudy.xxyms.user.domain.Menu" id="BaseResultMap">
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="pcode" property="pcode" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="icon" property="icon" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="isopen" property="isopen" jdbcType="INTEGER"/>
+    </resultMap>
+    <select id="getFuncUriByRoleId" parameterType="int" resultType="string" >
+        select m.url from menu m 
+        inner join relation r on m.id = r.menuid and r.roleid = #{id,jdbcType=INTEGER} 
+        and m.status = 1 
+    </select>
+    <select id="getChildMenu" resultMap="BaseResultMap">
+        select m.code,m.pcode,m.name,m.icon,m.url,m.isopen from menu m 
+        inner join relation r on m.id = r.menuid and m.pcode = #{0,jdbcType=VARCHAR} and r.roleid = #{1,jdbcType=INTEGER} 
+        and m.ismenu = 1 and m.status = 1 
+    </select>
+</mapper>
